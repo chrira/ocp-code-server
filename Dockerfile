@@ -1,3 +1,12 @@
-FROM docker.io/codercom/code-server:4.8.2
+ARG CODER_VERSION=4.8.2-ubuntu
 
-RUN chgrp -R 0 /home/coder && chmod -R g+rwX /home/coder
+FROM docker.io/codercom/code-server:$CODER_VERSION
+
+USER root
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    chgrp -R 0 /home/coder  && \
+    chmod -R g+rwX /home/coder
+
+USER coder
